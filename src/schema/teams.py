@@ -1,6 +1,6 @@
 from peewee import *
 
-from schema.base import BaseModel
+from .base import BaseModel
 
 class Team(BaseModel):
     id = PrimaryKeyField()

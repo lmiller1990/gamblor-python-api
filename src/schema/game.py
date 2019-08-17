@@ -1,16 +1,19 @@
 from datetime import datetime
 from peewee import *
 
-from schema.base import BaseModel
+from .base import BaseModel
+
 
 class Game(BaseModel):
-    from schema.teams import Team
-    from schema.split import Split
-    from schema.league import League
+    from .teams import Team
+    from .split import Split
+    from .league import League
 
     id = PrimaryKeyField()
     red_side_team = ForeignKeyField(Team, column_name='red_side_team_id')
     blue_side_team = ForeignKeyField(Team, column_name='blue_side_team_id')
+    winner = ForeignKeyField(Team, column_name='winner_id')
+    loser = ForeignKeyField(Team, column_name='loser_id')
 
     red_side_team_id = IntegerField(Team)
     blue_side_team_id = IntegerField(Team)
@@ -30,7 +33,7 @@ class Game(BaseModel):
     red_side_team_fbaron_odds = DoubleField()
 
     date = DateTimeField()
-    split = ForeignKeyField(Split)
+    split = ForeignKeyField(Split, backref='games')
     league = ForeignKeyField(League)
 
     class Meta:

@@ -1,14 +1,21 @@
 from peewee import *
 
-from schema.base import BaseModel
+from .base import BaseModel
+from .league import League
+
 
 class Split(BaseModel):
 
-    from schema.league import League
 
     id = PrimaryKeyField()
     name = TextField()
     league = ForeignKeyField(League)
+    created_at = DateTimeField()
 
     class Meta:
         table_name = 'splits'
+
+    def unplayed_games(self):
+        from .game import Game
+
+        return self.games.where(Game.winner == None)

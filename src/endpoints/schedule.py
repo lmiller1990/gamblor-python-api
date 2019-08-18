@@ -1,5 +1,7 @@
 from flask import Blueprint, request
 import json
+from playhouse.shortcuts import model_to_dict
+
 
 from src.schema.league import League
 
@@ -14,4 +16,7 @@ def schedule():
     split = league.current_split()
     unplayed_games = split.unplayed_games()
 
-    return json.dumps({'league': league.id})
+    return json.dumps({
+        'league': league.id,
+        'games': [g.to_json() for g in unplayed_games]
+        }, default=str)

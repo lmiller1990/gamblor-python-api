@@ -12,8 +12,10 @@ class Game(BaseModel):
     id = PrimaryKeyField()
     red_side_team = ForeignKeyField(Team, column_name='red_side_team_id')
     blue_side_team = ForeignKeyField(Team, column_name='blue_side_team_id')
-    winner = ForeignKeyField(Team, column_name='winner_id')
-    loser = ForeignKeyField(Team, column_name='loser_id')
+    winner = ForeignKeyField(Team, backref='won_games', column_name='winner_id')
+    winner_id = IntegerField(Team)
+    loser = ForeignKeyField(Team, backref='lost_games', column_name='loser_id')
+    loser_id = IntegerField(Team)
 
     red_side_team_id = IntegerField(Team)
     blue_side_team_id = IntegerField(Team)
@@ -38,6 +40,20 @@ class Game(BaseModel):
 
     class Meta:
         table_name = 'games'
+
+    def to_json(self):
+        import code; code.interact(local=dict(globals(), **locals()))
+
+        return {
+                'id': self.id,
+                'date': self.date,
+                'split_id': self.split.id,
+                'league_id': self.league.id,
+                'blue_side_team_id': self.blue_side_team_id,
+                'red_side_team_id': self.red_side_team_id,
+                'winner_id': self.winner_id,
+                'loser_id': self.loser_id
+                }
 
     @classmethod
     def previous_n_regular_season_games_for_team(cls, team, n, game_date):

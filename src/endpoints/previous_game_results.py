@@ -18,6 +18,18 @@ def previous_game_results():
 
     Example:
         curl /previous_game_results?team_id=1&n=10
+
+    Example response:
+        [
+           {
+              "fb" : false,
+              "fbaron" : false,
+              "fd" : true,
+              "ft" : false,
+              "game_id" : 809,
+              "win" : false
+           }
+        ]
     """
     team_id = int(request.args.get('team_id'))
     n = int(request.args.get('n'))

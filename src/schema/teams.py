@@ -1,6 +1,9 @@
 from peewee import *
+from functools import reduce
 
 from .base import BaseModel
+from src.models.mappings import map_market_short_to_long_with_id
+
 
 class Team(BaseModel):
     id = PrimaryKeyField()
@@ -55,17 +58,13 @@ class Team(BaseModel):
         return list(map(serialize, games))
 
     def market_success_over_games(self, games, market):
-        mapper = {
-                'FBaron': 'first_baron_team_id',
-                'FB': 'first_blood_team_id',
-                'FD': 'first_dragon_team_id',
-                'FT': 'first_turret_team_id'
-                }
+        """
+        Returns % success of a team at given market given a set of games (between 0 and 1)
 
-        success = 0
-        for game in games:
-            if getattr(game, mapper[market]) == self.id:
-                success += 1
-
+        Parameters:
+            games: A list of schema.Game
+            market: 'fb' | 'ft' | 'fd' | 'fbaron'
+        """
+        attr = map_market_short_to_long_with_id(market)
+        success = reduce(lambda acc, game: acc + 1 if getattr(game, attr) == self.id else acc, games, 0)
         return (success / len(games))
-

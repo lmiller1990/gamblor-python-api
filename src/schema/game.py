@@ -1,8 +1,8 @@
 from datetime import datetime
 from peewee import *
 
-from src.utils.datetime import stringify_date
 from .base import BaseModel
+from src.utils.datetime import stringify_date
 
 
 class Game(BaseModel):
@@ -95,3 +95,7 @@ class Game(BaseModel):
 
         games.reverse()
         return games
+
+    @classmethod
+    def played_by_team_before_date(cls, team, game_date, n=15):
+        return team.played_games().where(cls.date < game_date).limit(n).order_by(cls.date.desc())

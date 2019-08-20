@@ -2,7 +2,7 @@ import json
 from flask import Blueprint, request
 from datetime import datetime, timedelta
 
-from src.schema.split import Split
+from src.schema.game import Game
 from src.models.bet_recommendations import get_recommendations_for_unplayed_games
 
 
@@ -11,7 +11,6 @@ bp = Blueprint('recommendations', __name__)
 
 @bp.route('/recommendations', methods=['GET'])
 def recommendations():
-    from src.schema.game import Game
     """
     Return a list of recommendations for upcoming games, including EV, success rate, etc.
 

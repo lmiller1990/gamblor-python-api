@@ -1,6 +1,7 @@
 from datetime import datetime
 from peewee import *
 
+from src.utils.datetime import stringify_date
 from .base import BaseModel
 
 
@@ -47,6 +48,7 @@ class Game(BaseModel):
                 'date': self.date,
                 'split_id': self.split.id,
                 'league_id': self.league.id,
+                'date': stringify_date(self.date),
                 'blue_side_team_id': self.blue_side_team_id,
                 'red_side_team_id': self.red_side_team_id,
                 'winner_id': self.winner_id,

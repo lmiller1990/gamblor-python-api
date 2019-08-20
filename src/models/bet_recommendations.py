@@ -1,3 +1,5 @@
+import itertools
+
 from src.types import markets
 from src.schema.game import Game
 from src.models.mappings import map_team_and_market_to_odds
@@ -87,3 +89,17 @@ def market_summaries_for_game(game, past_n_games):
     """
     return [market_summary_for_game(game, market, past_n_games) for market in markets]
 
+
+def get_recommendations_for_unplayed_games(games, past_n_games):
+    """
+    Return summaries for a set of games
+
+    Parameters:
+        games: schema.Game[]
+        past_n_games: how many previous games to consider in EV calculation
+
+    Returns:
+        A list of dictionaries of recommendations. See return type of market_summary_for_game above
+    """
+    summaries = [market_summaries_for_game(game, past_n_games) for game in games]
+    return [x for y in summaries for x in y]

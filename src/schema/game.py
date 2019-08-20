@@ -64,6 +64,14 @@ class Game(BaseModel):
                 }
 
     @classmethod
+    def unplayed(cls, since):
+        if since:
+            return cls.select().where(cls.winner_id == None and cls.loser_id == None).where(cls.date > since)
+
+        return cls.select().where(cls.winner_id == None and cls.loser_id == None)
+
+
+    @classmethod
     def previous_n_regular_season_games_for_team(cls, team, n, game_date):
         games =  [
                 g for g in (cls

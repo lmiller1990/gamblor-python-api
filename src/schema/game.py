@@ -42,8 +42,6 @@ class Game(BaseModel):
         table_name = 'games'
 
     def to_json(self):
-        import code; code.interact(local=dict(globals(), **locals()))
-
         return {
                 'id': self.id,
                 'date': self.date,
@@ -52,7 +50,15 @@ class Game(BaseModel):
                 'blue_side_team_id': self.blue_side_team_id,
                 'red_side_team_id': self.red_side_team_id,
                 'winner_id': self.winner_id,
-                'loser_id': self.loser_id
+                'loser_id': self.loser_id,
+                'blue_side_team_fb_odds': self.blue_side_team_fb_odds,
+                'blue_side_team_ft_odds': self.blue_side_team_ft_odds,
+                'blue_side_team_fd_odds': self.blue_side_team_fd_odds,
+                'blue_side_team_fbaron_odds': self.blue_side_team_fbaron_odds,
+                'red_side_team_fb_odds': self.red_side_team_fb_odds,
+                'red_side_team_ft_odds': self.red_side_team_ft_odds,
+                'red_side_team_fd_odds': self.red_side_team_fd_odds,
+                'red_side_team_fbaron_odds': self.red_side_team_fbaron_odds
                 }
 
     @classmethod

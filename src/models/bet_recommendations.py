@@ -70,6 +70,7 @@ def market_summary_for_game(game, market, past_n_games):
     return {
             **data,
             'market': market,
+            'game_id': game.id,
             'red_side_team_id': game.red_side_team_id,
             'blue_side_team_id': game.blue_side_team_id,
             'red_ev': _calc_ev_for('red', data),

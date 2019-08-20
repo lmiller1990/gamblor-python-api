@@ -13,6 +13,29 @@ bp = Blueprint('recommendations', __name__)
 def recommendations():
     from src.schema.game import Game
     """
+    Return a list of recommendations for upcoming games, including EV, success rate, etc.
+
+    Parameters:
+        past_n_games: number of games to consider in EV calculation
+
+    Example:
+        curl /recommendations?past_n_games=20
+
+    Example response:
+        [
+            {
+              "blue_ev" : 0.605,
+              "blue_odds" : 2.2,
+              "blue_side_team_id" : 119,
+              "blue_success" : 0.4,
+              "game_id": 1,
+              "market" : "fd",
+              "red_ev" : 1.16725,
+              "red_odds" : 1.61,
+              "red_side_team_id" : 4,
+              "red_success" : 0.85
+           }
+       ]
     """
     past_n_games = int(request.args.get('past_n_games'))
 

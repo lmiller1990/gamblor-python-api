@@ -2,7 +2,7 @@ import json
 from flask import Blueprint, request
 
 from src.schema.split import Split
-from src.models.bet_recommendations import market_summary_for_game
+from src.models.bet_recommendations import market_summaries_for_game
 
 
 bp = Blueprint('recommendations', __name__)
@@ -19,5 +19,6 @@ def recommendations():
     if market is None or past_n_games is None:
         raise ValueError('market and past_n_games query parameters are required')
 
-    summary = market_summary_for_game(Game.get_by_id(1128), market=market, past_n_games=past_n_games)
+    # summary = market_summary_for_game(Game.get_by_id(1128), market=market, past_n_games=past_n_games)
+    summary = market_summaries_for_game(Game.get_by_id(1128), past_n_games)
     return json.dumps(summary)

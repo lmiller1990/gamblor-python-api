@@ -1,3 +1,4 @@
+from src.types import markets
 from src.schema.game import Game
 from src.models.mappings import map_team_and_market_to_odds
 
@@ -72,3 +73,17 @@ def market_summary_for_game(game, market, past_n_games):
             'red_ev': _calc_ev_for('red', data),
             'blue_ev': _calc_ev_for('blue', data)
             }
+
+def market_summaries_for_game(game, past_n_games):
+    """
+    Summarize all markets for a given game, and return results 
+
+    Parameters:
+        game: schema.Game,
+        past_n_games: number of previous games
+
+    Returns:
+        A list of dictionaries, see return type of market_summary_for_game above
+    """
+    return [market_summary_for_game(game, market, past_n_games) for market in markets]
+

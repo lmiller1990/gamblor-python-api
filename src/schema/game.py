@@ -97,5 +97,5 @@ class Game(BaseModel):
         return games
 
     @classmethod
-    def played_by_team_before_date(cls, team, game_date, n=15):
+    def played_by_team_before_date(cls, team, game_date, n):
         return team.played_games().where(cls.date < game_date).limit(n).order_by(cls.date.desc())

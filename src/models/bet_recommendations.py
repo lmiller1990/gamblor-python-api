@@ -1,16 +1,6 @@
-# game_id
-# red_side_team_id
-# blue_side_team_id
-# blue_side_odds
-# red_side_odds
-# market
-# red_side_ev
-# blue_side_ev
-# red_side_success
-# blue_side_success
-
 from src.schema.game import Game
 from src.models.mappings import map_team_and_market_to_odds
+
 
 def _get_market_success(game, side, market, n):
     team = getattr(game, side + '_side_team')
@@ -39,11 +29,33 @@ def _calc_ev_for(side, data):
         red_failure = 1 - data['red_success']
         return ((data['blue_success'] + red_failure) / 2) * data['blue_odds']
 
-def market_summary_for_game(game):
-    red_success = _get_market_success(game, 'red', 'fbaron', n=14)
-    blue_success = _get_market_success(game, 'blue', 'fbaron', n=14)
-    red_odds = map_team_and_market_to_odds(game, side='red', market='fbaron')
-    blue_odds = map_team_and_market_to_odds(game, side='blue', market='fbaron')
+def market_summary_for_game(game, market, past_n_games):
+    """
+    Summarizes the markets for a given game
+
+    Parameters:
+        game: schema.Game to summarizes markets for
+        market: 'fb' | 'ft' | 'fd' | 'fbaron'
+        past_n_games: the number of prior games to consider when calculating the EV
+
+
+    Returns:
+        dictionary: { 
+            market: 'fb' | 'ft' | 'fd' | 'fbaron',
+            red_success: float, 
+            blue_success: float, 
+            red_odds: float, 
+            blue_odds: float,
+            red_ev: float,
+            blue_ev: float
+            red_side_team_id: int,
+            blue_side_team_id: int
+        }
+    """
+    red_success = _get_market_success(game, 'red', market, n=past_n_games)
+    blue_success = _get_market_success(game, 'blue', market, n=past_n_games)
+    red_odds = map_team_and_market_to_odds(game, side='red', market=market)
+    blue_odds = map_team_and_market_to_odds(game, side='blue', market=market)
 
     data = {
             'red_success': red_success,
@@ -54,6 +66,9 @@ def market_summary_for_game(game):
 
     return {
             **data,
+            'market': market,
+            'red_side_team_id': game.red_side_team_id,
+            'blue_side_team_id': game.blue_side_team_id,
             'red_ev': _calc_ev_for('red', data),
             'blue_ev': _calc_ev_for('blue', data)
             }

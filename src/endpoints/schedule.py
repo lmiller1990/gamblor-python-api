@@ -49,7 +49,4 @@ def schedule():
     split = league.current_split()
     unplayed_games = split.unplayed_games()
 
-    return json.dumps({
-        'league_id': league.id,
-        'games': [g.to_json() for g in unplayed_games]
-        }, default=str)
+    return json.dumps([g.to_json() for g in unplayed_games])

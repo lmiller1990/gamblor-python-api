@@ -31,6 +31,13 @@ class Team(BaseModel):
         from .game import Game
         return self.games().where(Game.winner_id != None)
 
+    def to_json(self):
+        return {
+                'id': self.id,
+                'name': self.name,
+                'short_name': self.short_name,
+                }
+
     def results_for_previous_games(self, n=14):
         """
         Return the fb/ft/fd etc for the past n completed games

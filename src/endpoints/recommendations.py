@@ -15,7 +15,8 @@ def recommendations():
     Return a list of recommendations for upcoming games, including EV, success rate, etc.
 
     Parameters:
-        past_n_games: number of games to consider in EV calculation
+        past_n_games (int): number of games to consider in EV calculation
+        game_ids (int[]): games to retreive recommendations for
 
     Example:
         curl /recommendations?past_n_games=20
@@ -42,8 +43,6 @@ def recommendations():
     if past_n_games is None:
         raise ValueError('market and past_n_games query parameters are required')
 
-    # four_days_ago = datetime.now() - timedelta(days=4)
-    # games = Game.unplayed(since=four_days_ago)
     games = Game.select().where(Game.id.in_(game_ids))
     summary = get_recommendations_for_unplayed_games(games, past_n_games)
 

@@ -69,6 +69,7 @@ def market_summary_for_game(game, market, past_n_games):
 
     return {
             **data,
+            'id': str(game.id) + '-' + market,
             'market': market,
             'game_id': game.id,
             'red_side_team_id': game.red_side_team_id,

@@ -3,6 +3,7 @@ from functools import reduce
 
 from .base import BaseModel
 from src.models.mappings import map_market_short_to_long_with_id
+from src.utils.datetime import stringify_date
 
 
 class Team(BaseModel):
@@ -53,8 +54,12 @@ class Team(BaseModel):
         games = self.played_games().order_by(Game.date.desc()).limit(n)
 
         def serialize(game):
+            opponent_id = game.red_side_team_id if game.blue_side_team_id == self.id else game.blue_side_team_id
             return {
                     'game_id': game.id,
+                    'date': stringify_date(game.date),
+                    'team_id': self.id,
+                    'opponent_id': opponent_id,
                     'fb': game.first_blood_team_id == self.id,
                     'ft': game.first_turret_team_id == self.id,
                     'fd': game.first_dragon_team_id == self.id,

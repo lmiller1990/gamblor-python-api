@@ -27,6 +27,9 @@ def previous_game_results():
               "fd" : true,
               "ft" : false,
               "game_id" : 809,
+              "date": game.date,
+              "team_id": self.id,
+              "opponent_id": opponent_id,
               "win" : false
            }
         ]

@@ -43,6 +43,9 @@ Example response:
           "fbaron" : false,
           "fd" : true,
           "ft" : false,
+          "date": '2019-10-01 12:00:00',
+          "team_id": 1,
+          "opponent_id": 2,
           "game_id" : 809,
           "win" : false
        }

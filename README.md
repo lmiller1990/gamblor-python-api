@@ -1,1 +1,163 @@
+A simple API built using python, peewee and flask.
+
+## Endpoints
+
+### GET /leagues
+
+```
+  Return a list of all active leagues
+
+  Parameters:
+      None
+
+  Example:
+      curl /leagues
+
+  Example response:
+      [
+         {
+            "active" : true,
+            "id" : 2,
+            "name" : "NA LCS 2019"
+         }
+      ]
+```
+
+### GET /previous_game_results
+
+
+```
+Return a list of results of previous games for a team
+
+Parameters:
+    team_id: team_id to return game results for
+    n: number of previous games
+
+Example:
+    curl /previous_game_results?team_id=1&n=10
+
+Example response:
+    [
+       {
+          "fb" : false,
+          "fbaron" : false,
+          "fd" : true,
+          "ft" : false,
+          "game_id" : 809,
+          "win" : false
+       }
+    ]
+```
+
+### GET /recommendations
+
+```
+Return a list of recommendations for upcoming games, including EV, success rate, etc.
+
+Parameters:
+    past_n_games (int): number of games to consider in EV calculation
+    game_ids (int[]): games to retreive recommendations for
+
+Example:
+    curl /recommendations?past_n_games=20
+
+Example response:
+    [
+        {
+          "blue_ev" : 0.605,
+          "blue_odds" : 2.2,
+          "blue_side_team_id" : 119,
+          "blue_success" : 0.4,
+          "game_id": 1,
+          "market" : "fd",
+          "red_ev" : 1.16725,
+          "red_odds" : 1.61,
+          "red_side_team_id" : 4,
+          "red_success" : 0.85
+       }
+   ]
+```
+
+### GET /Schedule
+
+```
+Return upcoming games for a given league
+
+Parameters:
+    league: the name thee league
+
+Example:
+    curl /schedule?league=NA_LCS_2019
+
+Example response:
+    {
+        "games": [
+            {
+                "blue_side_team_fb_odds" : 2.1,
+                "blue_side_team_fbaron_odds" : 2.62,
+                "blue_side_team_fd_odds" : 2.2,
+                "blue_side_team_ft_odds" : 2.25,
+                "blue_side_team_id" : 119,
+                "date" : "2019-08-22 00:00:00",
+                "id" : 1077,
+                "league_id" : 2,
+                "loser_id" : null,
+                "red_side_team_fb_odds" : 1.66,
+                "red_side_team_fbaron_odds" : 1.44,
+                "red_side_team_fd_odds" : 1.61,
+                "red_side_team_ft_odds" : 1.57,
+                "red_side_team_id" : 4,
+                "split_id" : 4,
+                "winner_id" : null
+            }
+        ],
+        "league_id" 2
+    }
+```
+
+### GET /splits
+
+```
+Return a list of all active splits
+
+Parameters:
+    None
+
+Example:
+    curl /splits
+
+Example response:
+    [
+       {
+          "created_at" : "2019-04-30 08:24:08",
+          "id" : 12,
+          "league_id" : 10,
+          "name" : "All Games"
+       }
+    ]
+```
+
+### GET /teams
+
+```
+Return a list of all teams
+
+Parameters:
+    None
+
+Example:
+    curl /teams
+
+Example response:
+    [
+      {
+        "id" : 116,
+        "name" : "Golden Guardians",
+        "short_name" : 'ggs'
+      }
+    ]
+```
+
+### Useful Snippets
+
 import code; code.interact(local=dict(globals(), **locals()))

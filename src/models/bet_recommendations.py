@@ -1,4 +1,5 @@
 import itertools
+from src.utils.datetime import stringify_date
 
 from src.types import markets
 from src.schema.game import Game
@@ -45,6 +46,8 @@ def market_summary_for_game(game, market, past_n_games):
     Returns:
         dictionary: { 
             market: 'fb' | 'ft' | 'fd' | 'fbaron',
+            date: string,
+            id: string,
             red_success: float, 
             blue_success: float, 
             red_odds: float, 
@@ -70,6 +73,7 @@ def market_summary_for_game(game, market, past_n_games):
     return {
             **data,
             'id': str(game.id) + '-' + market,
+            'date': stringify_date(game.date),
             'market': market,
             'game_id': game.id,
             'red_side_team_id': game.red_side_team_id,

@@ -57,6 +57,7 @@ class Team(BaseModel):
             opponent_id = game.red_side_team_id if game.blue_side_team_id == self.id else game.blue_side_team_id
             return {
                     'game_id': game.id,
+                    'game_number': game.game_number,
                     'date': stringify_date(game.date),
                     'team_id': self.id,
                     'opponent_id': opponent_id,

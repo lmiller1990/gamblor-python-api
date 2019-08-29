@@ -17,6 +17,7 @@ class Game(BaseModel):
     winner_id = IntegerField(Team)
     loser = ForeignKeyField(Team, backref='lost_games', column_name='loser_id')
     loser_id = IntegerField(Team)
+    game_number = IntegerField()
 
     red_side_team_id = IntegerField(Team)
     blue_side_team_id = IntegerField(Team)

@@ -22,14 +22,19 @@ def _calc_ev_for(side, data):
         data: { blue_success: float, red_success: float, blue_odds: float, red_odds: float }
 
     Returns:
-        float: Expected EV
+        float: Expected EV, or 0 if odds not available
     """
 
     if side is 'red':
+        if not data['red_odds']:
+            return 0
+
         blue_failure = 1 - data['blue_success']
         return ((data['red_success'] + blue_failure) / 2) * data['red_odds']
 
     if side is 'blue':
+        if not data['blue_odds']:
+            return 0
         red_failure = 1 - data['red_success']
         return ((data['blue_success'] + red_failure) / 2) * data['blue_odds']
 
@@ -60,8 +65,8 @@ def market_summary_for_game(game, market, past_n_games):
     """
     red_success = _get_market_success(game, 'red', market, n=past_n_games)
     blue_success = _get_market_success(game, 'blue', market, n=past_n_games)
-    red_odds = map_team_and_market_to_odds(game, side='red', market=market)
-    blue_odds = map_team_and_market_to_odds(game, side='blue', market=market)
+    red_odds = map_team_and_market_to_odds(game, side='red', market=market) or 0
+    blue_odds = map_team_and_market_to_odds(game, side='blue', market=market) or 0
 
     data = {
             'red_success': red_success,

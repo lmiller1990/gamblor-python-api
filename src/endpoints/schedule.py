@@ -14,10 +14,10 @@ def schedule():
     Return upcoming games for a given league
 
     Parameters:
-        league: the name thee league
+        league: id of the league to get schedule for
 
     Example:
-        curl /schedule?league=NA_LCS_2019
+        curl /schedule?league=3
 
     Example response:
         {
@@ -44,8 +44,8 @@ def schedule():
             "league_id" 2
         }
     """
-    name = request.args.get('league').replace('_', ' ')
-    league = League.find_by_name(name)
+    league_id = int(request.args.get('league'))
+    league = League.get_by_id(league_id)
     split = league.current_split()
     unplayed_games = split.unplayed_games()
 

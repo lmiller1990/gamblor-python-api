@@ -87,10 +87,10 @@ Example response:
 Return upcoming games for a given league
 
 Parameters:
-    league: the name thee league
+    leaguee: league id to fetch schedule for
 
 Example:
-    curl /schedule?league=NA_LCS_2019
+    curl /schedule?league=2
 
 Example response:
     {

@@ -77,6 +77,9 @@ class Team(BaseModel):
         Parameters:
             games: A list of schema.Game
             market: 'fb' | 'ft' | 'fd' | 'fbaron'
+
+        Returns:
+            success (float): value between 0 and 1
         """
         attr = map_market_short_to_long_with_id(market)
         success = reduce(lambda acc, game: acc + 1 if getattr(game, attr) == self.id else acc, games, 0)

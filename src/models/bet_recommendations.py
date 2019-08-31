@@ -7,10 +7,28 @@ from src.models.mappings import map_team_and_market_to_odds
 
 
 def _get_market_success(game, side, market, n):
+    """
+    Get market success over last n games relative to a game
+
+    Parameters:
+        game (schema.Game): game we want to use as the reference point
+        side ('blue' | 'red'): the side of the team we are interested in
+        market: (str): fb, ft etc
+        n (int): number of prev. games to consider in calculation
+
+    Returns:
+        success (float): num between 0 and 1
+        games (schema.Game[]): games used in calculation
+        game (schema.Game): game used as r eference for calculation
+    """
     team = getattr(game, side + '_side_team')
     games = Game.played_by_team_before_date(team, game.date, n)
 
-    return team.market_success_over_games(games, market)
+    return {
+            'success': team.market_success_over_games(games, market),
+            'reference_game': game,
+            'games': games
+            }
 
 
 def _calc_ev_for(side, data):
@@ -69,8 +87,8 @@ def market_summary_for_game(game, market, past_n_games):
     blue_odds = map_team_and_market_to_odds(game, side='blue', market=market) or 0
 
     data = {
-            'red_success': red_success,
-            'blue_success': blue_success,
+            'red_success': red_success['success'],
+            'blue_success': blue_success['success'],
             'red_odds': red_odds,
             'blue_odds': blue_odds,
             }
@@ -78,6 +96,8 @@ def market_summary_for_game(game, market, past_n_games):
     return {
             **data,
             'id': str(game.id) + '-' + market,
+            'red_games': [g.to_json() for g in red_success['games']],
+            'blue_games': [g.to_json() for g in blue_success['games']],
             'date': stringify_date(game.date),
             'market': market,
             'game_id': game.id,

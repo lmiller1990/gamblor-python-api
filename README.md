@@ -1,5 +1,17 @@
 A simple API built using python, peewee and flask.
 
+## Running
+
+You can run locally by installing the dependencies or using docker. You will need the lcs database (need to contact me for a dump).
+
+### Locally
+
+You can run it locally. Install using `pip install -r requirements.txt`. Make sure you are using python3/pip3. Then start the app with `POSTGRES_DB=web_development POSTGRES_HOST=localhost POSTGRES_USER=lachlan FLASK_ENV=development python run.py`. You need to put your own postgres user in.
+
+### Docker
+
+Build the container using `docker build -t gamblor-python-api:latest .`. Then run it using `docker run -v ${PWD}:/app -p 5000:5000 --rm -e POSTGRES_DB=web_development -e POSTGRES_HOST=docker.for.mac.host.internal -e POSTGRES_USER=lachlan -e FLASK_ENV=development gamblor-python-api:latest`
+
 ## Endpoints
 
 ### GET /leagues

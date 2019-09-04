@@ -5,6 +5,7 @@ from . import db
 from src.endpoints import schedule
 from src.endpoints import leagues
 from src.endpoints import previous_game_results
+from src.endpoints import greeting
 from src.endpoints import recommendations
 from src.endpoints import splits
 from src.endpoints import teams
@@ -17,9 +18,14 @@ CORS(app)
 def hello():
     return 'hello'
 
+@app.route('/goodbye')
+def goodbye():
+    return 'goodbye'
+
 
 db.init_app(app)
 app.register_blueprint(schedule.bp)
+app.register_blueprint(greeting.bp)
 app.register_blueprint(leagues.bp)
 app.register_blueprint(previous_game_results.bp)
 app.register_blueprint(recommendations.bp)

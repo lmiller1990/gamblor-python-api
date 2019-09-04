@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  g-nginx:
+    image: g-nginx
+    ports:
+      - 80:80
+    depends_on:
+      - g-python
+
+  g-python:
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - FLASK_APP=${FLASK_APP}
+      - FLASK_ENV=${FLASK_ENV}
+    image: g-python
+    ports:
+      - 5000:5000
+      - 5432:5432

@@ -1,6 +1,6 @@
 A simple API built using python, peewee and flask.
 
-## Running
+## Development
 
 You can run locally by installing the dependencies or using docker. You will need the lcs database (need to contact me for a dump).
 
@@ -11,6 +11,10 @@ You can run it locally. Install using `pip install -r requirements.txt`. Make su
 ### Docker
 
 Build the container using `docker build -t gamblor-python-api:latest .`. Then run it using `docker run -v ${PWD}:/app -p 5000:5000 --rm -e POSTGRES_DB=web_development -e POSTGRES_HOST=docker.for.mac.host.internal -e POSTGRES_USER=lachlan -e FLASK_ENV=development gamblor-python-api:latest`
+
+### docker-compose
+
+Production uses nginx to handle the HTTP requests, before handing off to flask. Build the nginx image: `docker build -t g-nginx nginx`. Run with `POSTGRES_DB=web_development POSTGRES_HOST=docker.for.mac.localhost POSTGRES_USER=lachlan FLASK_ENV=development docker-compose up -d g-nginx`. As above, you will need the database (ask me for that).
 
 ## Endpoints
 

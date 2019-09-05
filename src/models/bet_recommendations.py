@@ -96,8 +96,6 @@ def market_summary_for_game(game, market, past_n_games):
     return {
             **data,
             'id': str(game.id) + '-' + market,
-            'red_games': [g.to_json() for g in red_success['games']],
-            'blue_games': [g.to_json() for g in blue_success['games']],
             'date': stringify_date(game.date),
             'market': market,
             'game_id': game.id,

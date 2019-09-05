@@ -13,6 +13,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASS=${POSTGRES_PASS}
       - FLASK_APP=${FLASK_APP}
       - FLASK_ENV=${FLASK_ENV}
     image: g-python

@@ -14,7 +14,7 @@ Build the container using `docker build -t gamblor-python-api:latest .`. Then ru
 
 ### docker-compose
 
-Production uses nginx to handle the HTTP requests, before handing off to flask. Build the nginx image: `docker build -t g-nginx nginx`. Run with `POSTGRES_DB=web_development POSTGRES_HOST=docker.for.mac.localhost POSTGRES_USER=lachlan FLASK_ENV=development docker-compose up -d g-nginx`. As above, you will need the database (ask me for that).
+Production uses nginx to handle the HTTP requests, before handing off to flask. The frontend and nginx configuration is found in [this repo](https://github.com/lmiller1990/gamblor-frontend). Build the nginx image: `docker build -t g-nginx nginx`. Fill out `.env` and run with `docker-compose up -d g-nginx`. As above, you will need the database (ask me for that).
 
 ## Endpoints
 

@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  g-nginx:
-    image: g-nginx
+  g-react-nginx:
+    image: g-react-nginx
     ports:
       - 80:80
     depends_on:

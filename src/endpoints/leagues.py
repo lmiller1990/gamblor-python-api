@@ -8,6 +8,7 @@ bp = Blueprint('leagues', __name__)
 
 
 @bp.route('/leagues', methods=['GET'])
+@bp.route('/api/leagues', methods=['GET'])
 def leagues():
     """
     Return a list of all active leagues

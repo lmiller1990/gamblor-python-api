@@ -8,6 +8,7 @@ bp = Blueprint('teams', __name__)
 
 
 @bp.route('/teams', methods=['GET'])
+@bp.route('/api/teams', methods=['GET'])
 def teams():
     """
     Return a list of all teams

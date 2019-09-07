@@ -9,6 +9,7 @@ bp = Blueprint('schedule', __name__)
 
 
 @bp.route('/schedule', methods=['GET'])
+@bp.route('/api/schedule', methods=['GET'])
 def schedule():
     """
     Return upcoming games for a given league

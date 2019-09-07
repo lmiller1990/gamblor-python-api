@@ -10,6 +10,7 @@ bp = Blueprint('recommendations', __name__)
 
 
 @bp.route('/recommendations', methods=['GET'])
+@bp.route('/api/recommendations', methods=['GET'])
 def recommendations():
     """
     Return a list of recommendations for upcoming games, including EV, success rate, etc.

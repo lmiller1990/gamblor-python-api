@@ -8,6 +8,7 @@ bp = Blueprint('splits', __name__)
 
 
 @bp.route('/splits', methods=['GET'])
+@bp.route('/api/splits', methods=['GET'])
 def splits():
     """
     Return a list of all active splits

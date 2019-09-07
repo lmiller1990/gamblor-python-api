@@ -8,6 +8,7 @@ bp = Blueprint('previous_game_results', __name__)
 
 
 @bp.route('/previous_game_results', methods=['GET'])
+@bp.route('/api/previous_game_results', methods=['GET'])
 def previous_game_results():
     """
     Return a list of results of previous games for a team

@@ -39,14 +39,12 @@ def recommendations():
        ]
     """
     game_ids = list(map(int, request.args.get('game_ids').split(',')))
-    print('game_ids', game_ids)
     past_n_games = int(request.args.get('past_n_games'))
 
     if past_n_games is None:
         raise ValueError('market and past_n_games query parameters are required')
 
     games = Game.select().where(Game.id.in_(game_ids))
-    print('games', games)
     summary = get_recommendations_for_unplayed_games(games, past_n_games)
 
     return json.dumps(summary)

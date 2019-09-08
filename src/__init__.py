@@ -9,6 +9,7 @@ from src.endpoints import greeting
 from src.endpoints import recommendations
 from src.endpoints import splits
 from src.endpoints import teams
+from src.endpoints import team_rankings
 
 
 app = Flask(__name__)
@@ -31,3 +32,4 @@ app.register_blueprint(previous_game_results.bp)
 app.register_blueprint(recommendations.bp)
 app.register_blueprint(splits.bp)
 app.register_blueprint(teams.bp)
+app.register_blueprint(team_rankings.bp)

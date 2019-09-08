@@ -177,6 +177,30 @@ Example response:
     ]
 ```
 
+### GET /team_rankings
+
+```
+Return a list of teams win rate over last n games
+
+Parameters:
+    past_n_games (int): number of games to consider win ratio calculation
+    league_id (int): league for the teams you are interested in
+
+Example:
+    curl /team_rankings?past_n_games=10&league_id=1
+
+Example response:
+    [
+      {
+        "id" : 116,
+        "name" : "Golden Guardians",
+        "short_name" : "ggs",
+        "winrate": 0.5,
+        "past_n_games": 10
+      }
+    ]
+```
+
 ### Useful Snippets
 
-import code; code.interact(local=dict(globals(), **locals()))
+- pry for python: import code; code.interact(local=dict(globals(), **locals()))

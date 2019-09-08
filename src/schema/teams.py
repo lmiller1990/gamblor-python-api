@@ -10,6 +10,7 @@ class Team(BaseModel):
     id = PrimaryKeyField()
     name = TextField()
     short_name = TextField()
+    league_id = IntegerField()
 
     class Meta:
         table_name = 'teams'
@@ -39,7 +40,23 @@ class Team(BaseModel):
                 'short_name': self.short_name,
                 }
 
-    def results_for_previous_games(self, n=14):
+    def winrate_for_previous_games(self, n):
+        """
+        Return the win % over the last n games
+
+        Parameters:
+            n: The number of games
+
+        Returns:
+            winrate (float): a number between 0 and 1 reflecting win rate
+        """
+
+        from .game import Game
+        games = self.played_games().order_by(Game.date.desc()).limit(n)
+        wins = reduce(lambda acc, curr: acc + 1 if curr.winner_id == self.id else acc, games, 0)
+        return wins / len(games)
+
+    def results_for_previous_games(self, n):
         """
         Return the fb/ft/fd etc for the past n completed games
 

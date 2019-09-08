@@ -71,40 +71,6 @@ class Game(BaseModel):
 
         return cls.select().where(cls.winner_id == None and cls.loser_id == None)
 
-
-    @classmethod
-    def previous_n_regular_season_games_for_team(cls, team, n, game_date):
-        games =  [
-                g for g in (cls
-                    .select()
-                    .where(
-                        (
-                            (cls.blue_side_team_id == team.id) |
-                            (cls.red_side_team_id == team.id)
-                        ) &
-                        (
-                            Game.date < game_date
-                        ) &
-                        (
-                            (
-                                (Game.date > datetime(2019, 1, 1))
-                                # remove to exclude playoff games from prev. split
-                                & (Game.date < datetime(2019, 3, 30))
-                            ) |
-                            (
-                                (Game.date > datetime(2019, 6, 1)) &
-                                (Game.date < datetime(2019, 8, 8))
-                            )
-                        )
-                    )
-                    .limit(n)
-                    .order_by(cls.date.desc())
-                    )
-                ]
-
-        games.reverse()
-        return games
-
     @classmethod
     def played_by_team_before_date(cls, team, game_date, n):
         return team.played_games().where(cls.date <= game_date).limit(n).order_by(cls.date.desc())

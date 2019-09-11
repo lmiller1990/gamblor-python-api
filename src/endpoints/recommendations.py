@@ -38,7 +38,11 @@ def recommendations():
            }
        ]
     """
-    game_ids = list(map(int, request.args.get('game_ids').split(',')))
+    if request.args.get('game_ids') is '':
+        return json.dumps([])
+
+    ids = request.args.get('game_ids').split(',')
+    game_ids = list(map(int, ids))
     past_n_games = int(request.args.get('past_n_games'))
 
     if past_n_games is None:

@@ -35,6 +35,19 @@ class Team(BaseModel):
         from .game import Game
         return self.games().where(Game.winner_id != None)
 
+    def last_n_played_games(self, n):
+        """
+        Return last completed n games for a team
+
+        Params:
+            n (int): number of games to consider
+
+        Returns:
+            games (src.schema.Game[]): list of games
+        """
+        from .game import Game
+        return self.played_games().order_by(Game.date.desc()).limit(n)
+
     def to_json(self):
         return {
                 'id': self.id,

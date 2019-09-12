@@ -7,10 +7,12 @@ from src.utils.datetime import stringify_date
 
 
 class Team(BaseModel):
+    from .league import League
     id = PrimaryKeyField()
     name = TextField()
     short_name = TextField()
     league_id = IntegerField()
+    league = ForeignKeyField(League, backref='teams')
 
     class Meta:
         table_name = 'teams'

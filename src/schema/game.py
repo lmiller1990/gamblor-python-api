@@ -73,4 +73,15 @@ class Game(BaseModel):
 
     @classmethod
     def played_by_team_before_date(cls, team, game_date, n):
+        """
+        Returns an array of src.schema.Game played by a team prior to a given date
+
+        Params:
+            team (src.schema.Team) - team whose games we want
+            game_date (datetime) - only get games before this date
+            n (int) - how many past games are we interested in
+
+        Returns:
+            a list or src.schema.Games
+        """
         return team.played_games().where(cls.date <= game_date).limit(n).order_by(cls.date.desc())

@@ -20,5 +20,5 @@ class User(BaseModel):
     def get_hashed_password(plaintext_password):
         return bcrypt.hashpw(plaintext_password, bcrypt.gensalt())
     
-    def check_password(plaintext_password, hashed_password):
-        return bcrypt.checkpw(plaintext_password, hashed_password)
+    def check_password(self, plaintext_password):
+        return bcrypt.checkpw(plaintext_password, self.encrypted_password)

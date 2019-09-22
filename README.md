@@ -224,6 +224,22 @@ Example response:
     }
 ```
 
+### PUT /users/sign_in
+
+```
+(PUT): Sign in
+
+Parameters:
+    email (str): email to sign up with
+    password (str): password
+
+Example:
+    curl -X PUT /users/sign_in --data '{"email": "test@email.com", "password": "password123"}' -H 'Content-Type: application/json'
+
+Example response:
+    'ff8d2a27-4943-4993-b8d4-3c02be4a75f0'
+```
+
 ### Useful Snippets
 
 - pry for python: import code; code.interact(local=dict(globals(), **locals()))

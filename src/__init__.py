@@ -10,6 +10,7 @@ from src.endpoints import recommendations
 from src.endpoints import splits
 from src.endpoints import teams
 from src.endpoints import team_rankings
+from src.endpoints import users
 
 
 app = Flask(__name__)
@@ -33,3 +34,4 @@ app.register_blueprint(recommendations.bp)
 app.register_blueprint(splits.bp)
 app.register_blueprint(teams.bp)
 app.register_blueprint(team_rankings.bp)
+app.register_blueprint(users.bp)

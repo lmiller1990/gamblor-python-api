@@ -205,6 +205,25 @@ Example response:
     ]
 ```
 
+### POST /users/sign_up
+
+
+```
+(POST): Create a new user
+
+Parameters:
+    email (str): email to sign up with
+    password (str): password to use (hashed w/ bcrypt)
+
+Example:
+    curl -X POST /users/sign_up --data '{"email": "test@email.com", "password": "password123"}' -H 'Content-Type: application/json'
+
+Example response:
+    {
+        status: 'OK'
+    }
+```
+
 ### Useful Snippets
 
 - pry for python: import code; code.interact(local=dict(globals(), **locals()))

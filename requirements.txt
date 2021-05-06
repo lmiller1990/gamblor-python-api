@@ -10,5 +10,5 @@ pycodestyle==2.4.0
 python-dotenv==0.10.0
 pyhumps==1.2.2
 simplejson==3.16.0
-flask-cors==3.0.8
+flask-cors==3.0.9
 py-bcrypt==0.4
